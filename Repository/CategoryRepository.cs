@@ -1,8 +1,9 @@
 using API.M.Movies.DAL.Models;
 using API.M.Movies.DAL;
 using Microsoft.EntityFrameworkCore;
+using API.M.Movies.Repository.IRepository;
 
-namespace API.M.Movies.Repository.IRepository
+namespace API.M.Movies.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -38,14 +39,14 @@ namespace API.M.Movies.Repository.IRepository
         {
             return await _context.Categories
                 .AsNoTracking()
-                .AnyAsync(c => c.Id == id)
+                .AnyAsync(c => c.Id == id);
         }
 
         public async Task<bool> CategoryExistsByNameAsync(string name)
         {
             return await _context.Categories
                 .AsNoTracking()
-                .AnyAsync(c => c.Name == name)
+                .AnyAsync(c => c.Name == name);
         }
 
         public async Task<bool> CreateCategoryAsync(Category category)
@@ -54,7 +55,7 @@ namespace API.M.Movies.Repository.IRepository
 
             await _context.Categories.AddAsync(category);
 
-            return await SaveAsync()
+            return await SaveAsync();
         }
 
         public async Task<bool> DeleteCategoryAsync(int id)
@@ -67,7 +68,7 @@ namespace API.M.Movies.Repository.IRepository
             }
 
             _context.Categories.Remove(category);
-            return await SaveAsync()
+            return await SaveAsync();
 
         }
 
@@ -75,7 +76,7 @@ namespace API.M.Movies.Repository.IRepository
         {
             category.ModifiedDate = DateTime.UtcNow;
             _context.Categories.Update(category);
-            return await SaveAsync()
+            return await SaveAsync();
         }
     }
 }
