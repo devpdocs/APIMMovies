@@ -56,19 +56,73 @@ namespace API.M.Movies.Controllers
             {
                 var createdCategory = await _categoryService.CreateCategoryAsync(categoryCreateDtos);
                 return CreatedAtRoute("GetCategoryAsync", new { id = createdCategory.Id }, createdCategory);
-                
+
             }
             catch (InvalidOperationException ex) when (ex.Message.Contains("Ya existe"))
             {
-                return Conflict(ex.Message); 
+                return Conflict(ex.Message);
 
             }
             catch (Exception ex)
             {
-                
+
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
+        }
+
+        [HttpPut("{id:int}", Name = "UpdateCategoryAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CategoryDtos>> UpdateCategoryAsync([FromBody] CategoryCreateUpdateDtos dto, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var updatedCategory = await _categoryService.UpdateCategoryAsync(dto, id);
+                return Ok(updatedCategory);
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("Ya existe"))
+            {
+                return Conflict(new { ex.Message });
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("No se encontró"))
+            {
+                return NotFound(new { ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}", Name = "DeleteCategoryAsync")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> DeleteCategoryAsync(int id)
+        {
+            try
+            {
+                var deletedCategory = await _categoryService.DeleteCategoryAsync(id);
+                return Ok(deletedCategory); //retorno un OK para mostrar el "True" de la eliminación
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("No se encontró"))
+            {
+                return NotFound(new { ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
     }
