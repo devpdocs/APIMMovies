@@ -1,6 +1,6 @@
 using API.M.Movies.DAL.Models;
 using API.M.Movies.Services.IServices;
-using API.M.Movies.Repository;
+using API.M.Movies.Repository.IRepository;
 using API.M.Movies.DAL.Models.Dtos;
 using AutoMapper;
 
@@ -8,10 +8,10 @@ namespace API.M.Movies.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly CategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public CategoryService(CategoryRepository categoryRepository, IMapper mapper)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;

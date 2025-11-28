@@ -1,5 +1,6 @@
 using API.M.Movies.DAL.Models;
 using API.M.Movies.DAL;
+using API.M.Movies.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using API.M.Movies.Repository.IRepository;
 
