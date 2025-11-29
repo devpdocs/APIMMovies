@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIMMovies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251128230043_MovieModificate")]
-    partial class MovieModificate
+    [Migration("20251129004658_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,6 @@ namespace APIMMovies.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Director")

@@ -16,9 +16,8 @@ namespace API.M.Movies.DAL.Models
         [Display(Name ="Duración del la pelicula")]
         public int Duration { get; set; } 
 
-        [Required]
         [Display(Name="Descripción de la pelicula")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         [Display(Name="Clasificación de la pelicula")]
