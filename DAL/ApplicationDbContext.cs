@@ -12,7 +12,7 @@ namespace API.M.Movies.DAL
 
         public DbSet<Category> Categories { get; set; }
 
-        // public DbSet<Movie> Movies { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
 
     }
